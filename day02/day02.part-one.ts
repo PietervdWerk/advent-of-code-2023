@@ -6,7 +6,7 @@ const config = {
   blue: 14,
 }
 
-function day02_part_one(input: string): number {
+function day02(input: string): number {
   return input.split('\n').reduce((acc, line) => {
     let parts = line.split(';')
     parts[0] = parts[0].split(':')[1]
@@ -37,7 +37,7 @@ function day02_part_one(input: string): number {
 }
 
 const sampleInput = await Bun.file('./test-input.txt').text()
-console.log(day02_part_one(sampleInput))
+console.log(day02(sampleInput))
 
 const input = await Bun.file('./puzzle-input.txt').text()
-console.log(day02_part_one(input))
+console.log(day02(input))

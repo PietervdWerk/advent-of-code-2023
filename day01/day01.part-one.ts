@@ -1,17 +1,15 @@
-const regw = /(\d)(?:.*(\d))?/
+const regex = /(\d)(?:.*(\d))?/
 
 export function day01(file: string) {
-  let sum = file.split('\n').reduce((acc, line) => {
-    const [_, a, b] = regw.exec(line)!
+  return file.split('\n').reduce((acc, line) => {
+    const [_, a, b] = regex.exec(line)!
 
-    return acc += b ? parseInt(a + b) : parseInt(a + a)
-
+    return (acc += b ? parseInt(a + b) : parseInt(a + a))
   }, 0)
-
-  return sum
 }
 
+const testInput = await Bun.file('./test-input.part-one.txt').text()
+console.log(day01(testInput))
 
-const input = await Bun.file("./puzzle-input.txt").text()
-
+const input = await Bun.file('./puzzle-input.txt').text()
 console.log(day01(input))

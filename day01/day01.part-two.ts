@@ -1,41 +1,30 @@
-const regw = /(\d|one|two|three|four|five|six|seven|eight|nine)(?:.*(\d|one|two|three|four|five|six|seven|eight|nine))?/
+const regex =
+  /(\d|one|two|three|four|five|six|seven|eight|nine)(?:.*(\d|one|two|three|four|five|six|seven|eight|nine))?/
+
+const numbers: Record<string, string> = {
+  one: '1',
+  two: '2',
+  three: '3',
+  four: '4',
+  five: '5',
+  six: '6',
+  seven: '7',
+  eight: '8',
+  nine: '9',
+}
 
 export function day01(file: string) {
-  let sum = file.split('\n').reduce((acc, line) => {
-    const [_, a, b] = regw.exec(line)!
+  return file.split('\n').reduce((acc, line) => {
+    const [_, a, b] = regex.exec(line)!
 
-    return acc += b ? parseInt(parseWords(a) + parseWords(b)) : parseInt(parseWords(a) + parseWords(a))
+    return (acc += b
+      ? parseInt((numbers[a] ?? a) + (numbers[b] ?? b))
+      : parseInt((numbers[a] ?? a) + (numbers[a] ?? a)))
   }, 0)
-
-  return sum
 }
 
-function parseWords(s: string) {
-  switch (s) {
-    case "one":
-      return "1"
-    case "two":
-      return "2"
-    case "three":
-      return "3"
-    case "four":
-      return "4"
-    case "five":
-      return "5"
-    case "six":
-      return "6"
-    case "seven":
-      return "7"
-    case "eight":
-      return "8"
-    case "nine":
-      return "9"
-    default:
-      return s
-    }
-}
+const testInput = await Bun.file('./test-input.part-two.txt').text()
+console.log(day01(testInput))
 
-
-const input = await Bun.file("./puzzle-input.txt").text()
-
+const input = await Bun.file('./puzzle-input.txt').text()
 console.log(day01(input))
